@@ -18,20 +18,13 @@
 
 ## Try The Demo First
 
-Before requesting the full software, you can try PolyFract on your own machine.
-
 **[Download PolyFract v1 Demo](https://github.com/MohamedAhmedAhmedAbdelazizHegazi/PolyFract-v1/releases/latest/download/PolyFract-v1-Demo-Setup.exe)** — Windows installer, no licence key, no account.
 
-The demo runs the **real analysis engine**, not a simulation or a set of screenshots. It ships with two histology samples and analyses them exactly as the full version would.
+Two images come with the demo: a human skin biopsy stained with Sirius Red, photographed in brightfield and again under polarized light. Open either module and run it. The analysis is the same one the full version performs, and it produces the same output: masks, heatmaps, RD scaling plots, and spreadsheets.
 
-| Included in the demo | Full version only |
-| --- | --- |
-| The complete analysis engine, unmodified | Loading your own histology images |
-| One Sirius Red brightfield sample and one polarized light sample of the same skin biopsy | Batch analysis across a slide set |
-| Preset thresholds for those samples, adjustable with live segmentation preview | Saving and reloading protocol files |
-| Full result export: masks, heatmaps, RD scaling plots, spreadsheets | Whole-slide and CZI formats, support, and updates |
+Thresholds are already set for these two images. You can move them and watch the segmentation change before committing to a run, then put them back with one click.
 
-The bundled samples cannot be replaced, and the demo cannot open other images. To request the complete software, see [Contact](#contact).
+The demo cannot open your own slides, run a whole slide set, or save protocol files. Those need the full version — see [Contact](#contact).
 
 ## Overview
 
