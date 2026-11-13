@@ -20,11 +20,11 @@
 
 **[Download PolyFract v1 Demo](https://github.com/MohamedAhmedAhmedAbdelazizHegazi/PolyFract-v1/releases/latest/download/PolyFract-v1-Demo-Setup.exe)** — Windows installer, no licence key, no account.
 
-Two images come with the demo: a human skin biopsy stained with Sirius Red, photographed in brightfield and again under polarized light. Open either module and run it. The analysis is the same one the full version performs, and it produces the same output: masks, heatmaps, RD scaling plots, and spreadsheets.
+The demo analyses your own brightfield and polarized images, one image at a time. Images are read where they are on disk and are never copied. The analysis is the same one the full version performs, and it produces the same output: masks, heatmaps, RD scaling plots, and spreadsheets.
 
-Thresholds are already set for these two images. You can move them and watch the segmentation change before committing to a run, then put them back with one click.
+Two images also come with the demo, a human skin biopsy stained with Sirius Red, photographed in brightfield and again under polarized light, with thresholds already set. You can move the thresholds and watch the segmentation change before committing to a run, then put them back with one click.
 
-The demo cannot open your own slides, run a whole slide set, or save protocol files. Those need the full version — see [Contact](#contact).
+Batch analysis of a whole slide set is available for academic research upon reasonable request — see [Contact](#contact).
 
 ## Overview
 
@@ -37,7 +37,7 @@ The current release includes:
 - Heatmap generation and hotspot localization
 - Excel-based quantitative output export
 - Protocol save/load support for consistent analyses across sessions and samples
-- Runtime storage management for uploaded files, previews, and generated outputs
+- Images read in place from their own disk; previews and outputs kept in a local runtime folder
 
 ## Why PolyFract
 
@@ -66,7 +66,7 @@ The demo installer and the quick start guide are published on the **[Releases pa
 
 | File | Purpose |
 | --- | --- |
-| [`PolyFract-v1-Demo-Setup.exe`](https://github.com/MohamedAhmedAhmedAbdelazizHegazi/PolyFract-v1/releases/latest/download/PolyFract-v1-Demo-Setup.exe) | evaluate PolyFract on the two bundled samples |
+| [`PolyFract-v1-Demo-Setup.exe`](https://github.com/MohamedAhmedAhmedAbdelazizHegazi/PolyFract-v1/releases/latest/download/PolyFract-v1-Demo-Setup.exe) | analyse your own images one at a time, or the two bundled samples |
 | [`PolyFract_Quick_Start_Guide_EN.pdf`](https://github.com/MohamedAhmedAhmedAbdelazizHegazi/PolyFract-v1/releases/latest/download/PolyFract_Quick_Start_Guide_EN.pdf) | installation and first-use guide |
 
 To use the demo:
@@ -77,7 +77,7 @@ To use the demo:
 4. Follow the guide during installation and first use.
 5. Open the application and start the required analysis workflow.
 
-Requires Windows 10 or 11, 64-bit. The Microsoft Edge WebView2 Runtime is installed automatically if it is not already present, and no internet connection is needed during setup.
+Requires Windows 10 or 11, 64-bit. PolyFract runs locally and opens in your default web browser; no internet connection is needed.
 
 **The full version is not distributed from this page.** It is provided directly to licensed users and collaborators; see [Requesting The Full Version](#requesting-the-full-version).
 
@@ -160,8 +160,8 @@ Computed metrics include:
 - Sirius Red area `(px)`
 - Tissue area `(px)`
 - Sirius Red area `(\%)`
-- Fractal Dimension from box-counting on the segmented fibrosis mask
-- Heatmap, RD, and RD scaling for Sirius Red area
+- Fractal Dimension from box-counting on the segmented fibrosis mask, with an adaptive fitting window and, from v1.1.0, a fixed-range estimate (recommended when images are compared)
+- Heatmap, RD, and RD scaling for Sirius Red area, plus RD computed on tissue quadrats only (from v1.1.0)
 - Heatmap, RD, and RD scaling for local fractal dimension
 
 ### Polarized
@@ -172,7 +172,7 @@ Computed metrics include:
 
 - Red channel statistics
 - Green channel statistics
-- Collagen Signal Ratio `(CSR)`
+- Collagen Signal Ratio `(CSR)`: mean green intensity divided by mean red intensity of the thresholded pixels. It describes the birefringent signal, which depends on fibre thickness, packing and orientation, and does not measure collagen type; report it with the red and green thresholds used
 - Heatmap mean, SD, RD%, valid boxes, and grid size
 
 ## Protocol Reproducibility
@@ -201,14 +201,7 @@ The demo keeps its own separate workspace, so the two editions never share runti
 %LOCALAPPDATA%\PolyFract v1 Demo\runtime
 ```
 
-This includes:
-
-- uploads
-- previews
-- outputs
-
-These runtime artifacts should generally not be committed to GitHub.
-The desktop build scripts and installer sources stay in the repository, while generated binaries and the local WebView2 bootstrapper remain ignored.
+This includes previews and outputs. Your images are not copied there: they are read from the disk where they are stored.
 
 If the installed desktop application cannot start, PolyFract writes a startup traceback here:
 
@@ -216,7 +209,7 @@ If the installed desktop application cannot start, PolyFract writes a startup tr
 %LOCALAPPDATA%\PolyFract v1\runtime\crash\desktop_startup_error.log
 ```
 
-If the desktop shell starts but the embedded Flask app fails later, inspect:
+If the application starts but an analysis fails later, inspect:
 
 ```text
 %LOCALAPPDATA%\PolyFract v1\runtime\crash\app_runtime.log
